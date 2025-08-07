@@ -1,0 +1,42 @@
+/* Custom styles can be added here if needed */
+.tab-btn.active {
+    border-bottom-color: #6366f1;
+    color: #6366f1;
+  }
+  
+  /* Room card styles */
+  .room-card {
+    transition: transform 0.2s;
+  }
+  
+  .room-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Food item card styles */
+  .food-item-card {
+    transition: all 0.2s;
+  }
+  
+  .food-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Booking card styles */
+  .booking-card {
+    transition: all 0.2s;
+  }
+  
+  .booking-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Order item styles */
+  .order-item {
+    transition: all 0.2s;
+  }
+  
+  .order-item:hover {
+    background-color: #f9fafb;
+  }

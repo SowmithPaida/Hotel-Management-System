@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxeNext Hotel</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-50">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold">LuxeNext Hotel</h1>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <input type="text" id="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <p id="login-error" class="text-red-500 text-sm hidden">Invalid credentials. Try admin/admin123</p>
+      </div>
+      <div class="mt-6">
+        <button id="login-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application (hidden initially) -->
+  <div id="app" class="min-h-screen bg-gray-50 hidden">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-gray-900">LuxeNext Hotel</h1>
+        <button id="logout-btn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex space-x-8">
+            <button data-tab="rooms" class="tab-btn inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+              <i data-lucide="home" class="h-4 w-4 mr-2"></i>
+              <span>Rooms</span>
+            </button>
+            <button data-tab="food" class="tab-btn inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+              <i data-lucide="utensils" class="h-4 w-4 mr-2"></i>
+              <span>Food</span>
+            </button>
+            <button data-tab="bill" class="tab-btn inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+              <i data-lucide="receipt" class="h-4 w-4 mr-2"></i>
+              <span>Bill</span>
+            </button>
+            <button data-tab="bookings" class="tab-btn inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+              <i data-lucide="book-user" class="h-4 w-4 mr-2"></i>
+              <span>Bookings</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+      <!-- Rooms tab -->
+      <div id="rooms-tab" class="tab-content hidden space-y-6">
+        <h2 class="text-2xl font-bold">Available Rooms</h2>
+        <div id="room-booking-form" class="hidden bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-semibold mb-4">Book Room <span id="room-number"></span></h3>
+          <div class="space-y-4">
+            <div>
+              <label for="guest-name" class="block text-sm font-medium text-gray-700">Guest Name</label>
+              <input type="text" id="guest-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+              <label for="guest-email" class="block text-sm font-medium text-gray-700">Guest Email</label>
+              <input type="email" id="guest-email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+              <label for="check-in-date" class="block text-sm font-medium text-gray-700">Check-in Date</label>
+              <input type="date" id="check-in-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+              <label for="check-out-date" class="block text-sm font-medium text-gray-700">Check-out Date</label>
+              <input type="date" id="check-out-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+          </div>
+          <div class="mt-6 flex justify-between">
+            <button id="cancel-booking-btn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Cancel
+            </button>
+            <button id="confirm-booking-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Confirm Booking
+            </button>
+          </div>
+        </div>
+        <div id="available-rooms" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Food tab -->
+      <div id="food-tab" class="tab-content hidden space-y-6">
+        <h2 class="text-2xl font-bold">Food Ordering</h2>
+        <div id="select-booking-section" class="space-y-4">
+          <h3 class="text-xl font-semibold">Select Booking</h3>
+          <div id="active-bookings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+        <div id="food-order-section" class="hidden">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2">
+              <h3 class="text-xl font-semibold mb-4">Menu</h3>
+              <div id="food-menu" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">Current Order</h3>
+              <div id="current-order" class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-lg font-semibold mb-4">Order for Room <span id="order-room-number"></span></h4>
+                <div id="order-items" class="space-y-4"></div>
+                <div class="border-t pt-4 mt-4">
+                  <p class="font-semibold">Total: $<span id="order-total">0</span></p>
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button id="cancel-order-btn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Cancel
+                </button>
+                <button id="submit-order-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Submit Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bill tab -->
+      <div id="bill-tab" class="tab-content hidden space-y-6">
+        <h2 class="text-2xl font-bold">Bill Generation</h2>
+        <div id="billing-bookings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Bookings tab -->
+      <div id="bookings-tab" class="tab-content hidden space-y-6">
+        <h2 class="text-2xl font-bold">Current Bookings</h2>
+        <div id="all-bookings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
